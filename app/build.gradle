@@ -1,0 +1,84 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+apply from: '../dependencies.gradle'
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion "30.0.2"
+
+    defaultConfig {
+        applicationId "com.kishorejethava.simplemusicplayer"
+        minSdkVersion 21
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    dataBinding {
+        enabled = true
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+        kotlinOptions {
+            jvmTarget = "1.8"
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation 'androidx.core:core-ktx:1.3.2'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
+    implementation koinDependencies.values()
+    implementation retrofitGSONOkHttpDependencies.values()
+    implementation coroutineDependencies.values()
+    implementation androidSupportDependencies.values()
+    implementation sdpSspDependencies.values()
+    implementation serializationDependencies.values()
+    implementation glideDependencies.values()
+
+
+    // ExoPlayer dependencies
+
+    // This allows UAMP to utilize a local version of ExoPlayer, which is particularly
+    // useful for extending the MediaSession extension, as well as for testing and
+    // customization. If the ":exoplayer-library-core" project is included, we assume
+    // the others are included as well.
+    if (findProject(':exoplayer-library-core') != null) {
+        api project(':exoplayer-library-core')
+        api project(':exoplayer-library-ui')
+        api project(':exoplayer-extension-mediasession')
+        api project(':exoplayer-extension-cast')
+    } else {
+        api "com.google.android.exoplayer:exoplayer-core:2.11.5"
+        api "com.google.android.exoplayer:exoplayer-ui:2.11.5"
+        api "com.google.android.exoplayer:extension-mediasession:2.11.5"
+        api "com.google.android.exoplayer:extension-cast:2.11.5"
+    }
+
+    implementation "androidx.room:room-runtime:2.2.5"
+    kapt "androidx.room:room-compiler:2.2.5"
+    implementation 'com.github.jeancsanchez:JcPlayer:2.6.16'
+
+
+}

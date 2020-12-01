@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.kishorejethava.simplemusicplayer.viewmodel.SongDetailViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:bind="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/_8sdp"
+        tools:context=".view.SongDetailActivity">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivAlbum"
+            android:layout_width="@dimen/_154sdp"
+            android:layout_height="@dimen/_154sdp"
+            app:layout_constraintStart_toStartOf="parent"
+            bind:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            bind:imageUrl="@{viewModel.songDetail.imImage.get(2).label}" />
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:textStyle="bold"
+            android:textSize="@dimen/_15ssp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ivAlbum"
+            android:text="@{viewModel.songDetail.imName.label}"
+            tools:text="Rock in!" />
+
+        <TextView
+            android:id="@+id/tvPrice"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_8sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            bind:layout_constraintTop_toBottomOf="@+id/tvTitle"
+            android:text="@{`Price: `+viewModel.songDetail.imPrice.label}"
+            tools:text="Price: $0.69" />
+
+        <TextView
+            android:id="@+id/tvArtist"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_8sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            bind:layout_constraintTop_toBottomOf="@+id/tvPrice"
+            android:text="@{`Artist: `+viewModel.songDetail.imArtist.label}"
+            tools:text="Artist: AJR" />
+
+        <TextView
+            android:id="@+id/tvReleaseDate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_8sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            bind:layout_constraintTop_toBottomOf="@+id/tvArtist"
+            android:text="@{`Release Date: `+viewModel.songDetail.imReleaseDate.attributes.label}"
+            tools:text="Release Date: February 12, 2020" />
+
+        <com.example.jean.jcplayer.view.JcPlayerView
+            android:id="@+id/player"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/bg_player_dark"
+            android:gravity="bottom"
+            app:next_icon_color="@color/colorAccent"
+            app:pause_icon_color="@color/colorAccent"
+            app:play_icon_color="@color/colorAccent"
+            app:previous_icon_color="@color/colorAccent"
+            app:progress_color="@color/colorAccent"
+            app:random_icon_color="@android:color/white"
+            app:repeat_icon_color="@android:color/white"
+            app:seek_bar_color="@android:color/white"
+            bind:layout_constraintBottom_toBottomOf="parent"
+            app:text_audio_current_duration_color="@color/colorAccent"
+            app:text_audio_duration_color="@color/colorAccent"
+            app:text_audio_title_color="@android:color/white" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

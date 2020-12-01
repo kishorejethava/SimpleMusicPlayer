@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">SimpleMusicPlayer</string>
+    <string name="error_network">Check your internet connection and try again</string>
+</resources>
